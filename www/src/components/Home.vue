@@ -1,0 +1,83 @@
+<template>
+  <div class="home-page" id="background">
+    Main
+    <!-- <button type="@click=createBoard">Create a Board</button> -->
+    <div id="app">
+      <button @click="toggleModal(1)">Create a Board</button>
+      <!-- use the modal component, pass in the prop -->
+      <modal :toggle="showModal">
+        <div slot="header">
+          <h3>Create Board</h3>
+        </div>
+        <div>
+          <form @submit.prevent="createBoard">
+            <input type="text" v-model="board.title" required>
+            <button type="submit">Create Board</button>
+          </form>
+        </div>
+      </modal>
+    </div>
+    <ul class="boards">
+      <h3>My Boards</h3>
+      <li class="boards" v-for="board in boards" :key="board._id" ><router-link :to="{name: 'board', params:{id:board._id}}" @click.native='setBoard(board)'>{{board.title}}</router-link></li>
+    </ul>
+  </div>
+</template>
+
+<script>
+  import router from '../router'
+  import modal from './Modal'
+  import board from './Board'
+
+  export default {
+    name: 'home',
+    components: { modal, board },
+    mounted() {
+      if (!this.$store.state.user._id) {
+        router.push({ name: 'login' })
+      }
+     this.$store.dispatch('getBoards', this.$store.state.user._id) 
+    },
+    data() {
+      return {
+        showModal: 0,
+        board:{
+        },
+        user:{
+          _id: ''
+        }
+        
+      }
+    },
+    computed: {
+      boards(){
+        return this.$store.state.boards
+      }
+    },
+    methods: {
+      createBoard() {
+        this.$store.dispatch('actionBoard', this.board)
+        this.toggleModal(-1)
+      },
+      setBoard(board) {
+        this.$store.commit('setBoard', board)
+      },
+      toggleModal(n){
+        this.showModal += n
+      },
+      listBoards() {
+        this.$store.dispatch('getBoards', this.$store.state.user._id)
+      }
+    }
+  }
+</script>
+
+<style>
+  #background {
+    background-image: url("../assets/pencil.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    color: white;
+  }
+</style>
