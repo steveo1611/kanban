@@ -1,33 +1,10 @@
 <template>
   <div class="list-page">
-    <!-- <div id="app">
-      <button @click="toggleModal(1)">Create a List</button> -->
-    <!-- use the modal component, pass in the prop -->
-    <!-- <modal :toggle="showModal">
-        <div slot="header">
-          <h3>Create List</h3>
-        </div>
-        <div>
-          <form @submit.prevent="createList">
-            <input type="text" v-model="list.title" required>
-            <button type="submit">Create List</button>
-          </form>
-        </div>
-      </modal>
-    </div> -->
     <div class="col-sm-12 my-3 card-deck">
-      <div class="card text-black w-100 h-500" v-for="list in returnList">
+      <div class="card text-black w-100 h-500" v-for="list in returnList" :key='list._id'>
         <h3>{{list.title}}</h3>
-        <h5>Board: {{list.boardId}}</h5>
-        <h5>list: {{list._id}}</h5>
         <button @click="deleteList(list)">Delete List</button>
-        <!--BUG BUG this is just temp -->
-        <!-- //tasks listings -->
-        <ktasks :key='list._id'></ktasks>
-        <!-- <button @click="createTask">New Task</button>   -->
-
-
-
+        <ktasks :id='list._id'></ktasks>
       </div>
     </div>
   </div>
@@ -45,34 +22,35 @@
        this.displayList()
     //  })
     },
-    components: { modal, ktasks },
-    props: {
-         },
     data() {
       return {
         showModal: 0,
-        tasks: {
-        },
+        tasks: {},
+        lists: {},
+        list:{},
+        id: ''
         }
     },
+    components: { modal, ktasks },
     computed: {
       returnList() {
         return this.$store.state.lists
       }
     },
     methods: {
+      toggleModal(n) {
+        this.showModal += n
+      },
       createList() {
         this.$store.dispatch('actionList', this.list)
         this.toggleModal(-1)
-      },
-      toggleModal(n) {
-        this.showModal += n
       },
       deleteList(list){
         this.$store.dispatch('deleteList')
       },
       displayList() {
-        this.$store.dispatch('getLists', this.$route.params.id)
+        this.$store.dispatch('getLists')
+        // this.$store.dispatch('getLists', this.$route.params.id)
       }
     }
   }

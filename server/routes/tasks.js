@@ -3,9 +3,10 @@ var Tasks = require('../models/task')
 
 // GET ALL
 router.get('/api/tasks/:id', (req, res, next) => {
-  console.log(req.params.listId)
-  console.log(req.params.id)
-  Tasks.find({listId: req.params.id})
+  // console.log(req.params.listId)
+  // console.log(req.params.id)
+  console.log(req)
+  Tasks.find({boardId: '5b6891a6672e8a4cdd3123af'})
     .then(tasks => {
       res.status(200).send(tasks)
     })
@@ -27,9 +28,8 @@ router.get('/api/tasks/:id', (req, res, next) => {
 
 // ADD/create
 router.post('/api/tasks', (req, res, next) => {
-  debugger
   var task = req.body
-  console.log(req.params.listId)
+  console.log(req)
   this.userId = req.session.uid
   Tasks.create(task)
     .then(newTask => {

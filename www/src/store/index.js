@@ -134,7 +134,7 @@ export default new vuex.Store({
       api
         .post('tasks', task)
         .then(res => {
-          dispatch('getTasks')
+          dispatch('getTasks', task.listId)
         })
         .catch(res => {
           alert('err')
@@ -156,7 +156,6 @@ export default new vuex.Store({
       })
     },
     getLists ({ commit, dispatch, state }) {
-      console.log(this.state.board._id + 'index-board')
       api.get('currentlists/' + state.board._id).then(res => {
         commit('setLists', res.data)
       })

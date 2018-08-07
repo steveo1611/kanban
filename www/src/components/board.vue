@@ -39,11 +39,9 @@
         board:{
         },
         list: {
-          //is this right?
-          boardId:this.$route.params.id,
-          title: ''
+          boardId: this.$route.params.id,
         },
-      //   lists: {}
+        lists: {}
       }
     },
     computed: {
@@ -66,5 +64,8 @@
 <style>
 .board-page{
   background-color:blueviolet;
+}
+.boards{
+  color:azure;
 }
 </style>
