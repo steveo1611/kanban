@@ -1,9 +1,8 @@
 <template>
   <div class="task-page">
-  <h3>Hello Heaven</h3>
-     <div id="app">
+    <div id="app">
       <button @click="toggleModal(1)" :key="id">Create a Task</button>
-          <modal :toggle="showModal">
+      <modal :toggle="showModal">
         <div slot="header">
           <h3>Create Task</h3>
         </div>
@@ -16,10 +15,11 @@
         </div>
       </modal>
     </div>
-    
-    <div class="tasks-list" v-for="task in listsTasks" >
-      <h3>Title:{{task.title}}</h3>
-      <h3>Description: {{task.body}}</h3>
+    <div class="my-3">
+    <div class="tasks-list card" v-for="task in listsTasks">
+      <h3>Title: {{task.title}}</h3>
+      <p>Description: {{task.body}}</p>
+      </div>
       </div>
 
     <!-- <div class="tasks-list" v-for="task in returnTasks" >
@@ -100,4 +100,8 @@
 .task-page{
   background-color:aqua
 }
+.tasks-list{
+  border-style: double;
+  margin:1rem;
+} 
 </style>

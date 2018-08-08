@@ -46,7 +46,8 @@
         this.toggleModal(-1)
       },
       deleteList(list){
-        this.$store.dispatch('deleteList')
+        console.log(list)
+        this.$store.dispatch('deleteList',list._id)
       },
       displayList() {
         this.$store.dispatch('getLists')

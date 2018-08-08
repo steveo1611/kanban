@@ -3,7 +3,7 @@
     <h3 class="boards">BOARD: {{returnBoard.title}}</h3>
     <div id="app">
       <button @click="toggleModal(1)">Create a List</button>
-      <button @click="">Delete Board</button> <!-- use the modal component, pass in the prop -->
+      <!-- <button @click="deleteBoard(list.boardId)">Delete Board</button> use the modal component, pass in the prop -->
       <modal :toggle="showModal">
         <div slot="header">
           <h3>Create List</h3>
@@ -57,6 +57,9 @@
       toggleModal(n){
         this.showModal +=n
       },
+      deleteBoard(bid){
+        this.$store.dispatch('deleteBrd', bid)
+      }
     }
   }
 </script>

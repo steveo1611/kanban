@@ -172,8 +172,13 @@ export default new vuex.Store({
     },
 
     deleteList ({ commit, dispatch }, id) {
-      api.delete('lists/').then(res => {
+      api.delete('lists/' + id).then(res => {
         dispatch('getLists')
+      })
+    },
+    deleteBrd({ commit, dispatch }, bid) {
+      api.delete('boards/' + bid).then(res => {
+        dispatch('getBoards')
       })
     }
     // getTask({commit,dispatch}, taskId){

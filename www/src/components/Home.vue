@@ -1,9 +1,8 @@
 <template>
   <div class="home-page" id="background">
-    Main
     <!-- <button type="@click=createBoard">Create a Board</button> -->
     <div id="app">
-      <button @click="toggleModal(1)">Create a Board</button>
+      <button class="brd-button" @click="toggleModal(1)">Create a Board</button>
       <!-- use the modal component, pass in the prop -->
       <modal :toggle="showModal">
         <div slot="header">
@@ -17,9 +16,14 @@
         </div>
       </modal>
     </div>
-    <ul class="boards">
-      <h3>My Boards</h3>
-      <li class="boards" v-for="board in boards" :key="board._id" ><router-link :to="{name: 'board', params:{id:board._id}}" @click.native='setBoard(board)'>{{board.title}}</router-link></li>
+    <ul class="boards list-unstyled">
+      <h3>{{user.name}}'s Boards</h3>
+      <div class='container'>
+        <div class='col-sm-6 offset-sm-3'>
+      <li class="board-list" v-for="board in boards" :key="board._id" ><router-link :to="{name: 'board', params:{id:board._id}}" @click.native='setBoard(board)'>{{board.title}}</router-link>
+     <button class='delbutton' @click='deleteBoard(board._id)'> delete</button> </li>
+     </div>
+     </div>
     </ul>
   </div>
 </template>
@@ -42,9 +46,6 @@
       return {
         showModal: 0,
         board:{
-        },
-        user:{
-          _id: ''
         }
         
       }
@@ -52,6 +53,9 @@
     computed: {
       boards(){
         return this.$store.state.boards
+      },
+      user() {
+        return this.$store.state.user
       }
     },
     methods: {
@@ -67,6 +71,9 @@
       },
       listBoards() {
         this.$store.dispatch('getBoards', this.$store.state.user._id)
+      },
+      deleteBoard(bid){
+        this.$store.dispatch('deleteBrd', bid)
       }
     }
   }
@@ -79,5 +86,20 @@
     background-repeat: no-repeat;
     background-attachment:fixed;
     color: white;
+  }
+  .board-list {
+    color: black;
+    margin: 15px;
+    background-color: #ffffff;
+    border: 1px solid black;
+    opacity: 0.6;
+    font:bold;
+  }
+  .delbutton{
+    text-align-last: justify;
+  }
+  .brd-button{
+    margin-top: 1rem;
+    margin-bottom: .5rem;
   }
 </style>
