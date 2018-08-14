@@ -10,7 +10,9 @@ let schema = new Schema({
   author: {type: ObjectId, ref: 'user'},
   boardId: {type: ObjectId, ref: 'board'},
   listId: {type: ObjectId, required: true, ref: 'list'},
-  createDate: {type: Number, default: Date.now(), required: true}
+  createDate: {type: Number, default: Date.now(), required: true},
+  comment: {type: String},
+  commentAuthor: {type: ObjectId, ref: 'user'}
 })
 
 module.exports = mongoose.model(schemaName, schema)

@@ -1,7 +1,8 @@
 <template>
   <div class="board-page">
-    <h3 class="boards">BOARD: {{returnBoard.title}}</h3>
+    <router-link to='/#'><h3 class="boards"> BOARD: {{returnBoard.title}}</h3> </router-link>
     <div id="app">
+      <router-link to='/#' tag='button'> HOME </router-link>
       <button @click="toggleModal(1)">Create a List</button>
       <!-- <button @click="deleteBoard(list.boardId)">Delete Board</button> use the modal component, pass in the prop -->
       <modal :toggle="showModal">

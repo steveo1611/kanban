@@ -8,10 +8,14 @@
         </div>
         <div>
           <form @submit.prevent="createTask" :key="returnTask.id">
+            <label class='modLabel'>Title:</label>
             <input type="text" v-model="returnTask.title" required>
+            <label class='modLabel'>Description:</label>
             <input type="text" v-model="returnTask.body">
+            <label class='modLabel'>Comments:</label>
+            <input type="text" v-modal="returnTask.comments">
             <button type="submit">Create Task</button>
-            </form>
+          </form>
         </div>
       </modal>
     </div>
@@ -19,6 +23,11 @@
     <div class="tasks-list card" v-for="task in listsTasks">
       <h3>Title: {{task.title}}</h3>
       <p>Description: {{task.body}}</p>
+      <p>Comments: </p>
+      <button>create comments</button>
+      <button>Edit comments</button>
+      <button>move task</button>
+      <button>delete task</button>
       </div>
       </div>
 
@@ -104,4 +113,8 @@
   border-style: double;
   margin:1rem;
 } 
+.modLabel{
+  display: block;
+  text-align: left;
+}
 </style>
